@@ -3,7 +3,7 @@ def clear():
     clear = lambda: os.system('cls')
     clear()
     
-    
+# Genera automaticamente un dicionario por defecto  
 def generarDic():
     diccionario = {
         "VAULT": {
@@ -35,6 +35,7 @@ def generarDic():
     return diccionario
 
 # -- Imprime todas las palabras con su contenido
+# opcio 1
 def imprimirDic(dic):
     for PK in sorted(dic.keys()): # ← pasa por cada palabra del dicionario
         print(PK)
@@ -43,7 +44,87 @@ def imprimirDic(dic):
             print("\t\t", dic[PK][SUBPK])
             print()
         print()
+
+
+def correcionStringsTrueOrFalse(reff):
+    print("Es correcto? S / N [[",reff,"]]")
+    correcion = input("-> ")
+    correcion = correcion.upper()
     
+def crearReferenciaAndDefinicion():
+  #   key
+  # "xarxa": {     ENTRADA
+          # referencia : definicion
+          #   ref   :   def
+          # "PESCA": "Ormeig de pescar constituït per un teixit de fils nuats formant una retícula quadrada o
+    clear()
+    print("--------------------------------")
+    print("- - -   Creador de datos   - - -")
+    print("--------------------------------")
+    print("")
+    while True:
+        print("Introduce la nueva referencia")
+        referencia = input("-> ")
+        print()
+        if (correcionStringsTrueOrFalse(referencia)==):
+            break     
+         
+    
+    
+def comprobarDicionario(dic,keyUser):
+    for PK in sorted(dic[PK].keys):
+        if (PK == keyUser):
+            print("ERROR")
+            print("Ya existe ",keyUser)
+            return True
+        
+        elif(PK != keyUser):
+            # print("Guardando ",keyUser,"...")
+            return False
+        
+def anadirEntrada(dic):
+    # while True
+    print("Introduce la palabra referente:")
+    key = input("-> ")
+    key = key.upper()
+    if (comprobarDicionario(dic,key)==False):
+        print()
+    else:  
+        print()
+           
+        
+        
+def mostrarKeyPalabras(dic):
+    num=1
+    for PK in sorted(dic.keys()): # ← pasa por cada palabra del dicionario
+        print("\t[",num,"]: " ,PK)
+        num+=1
+    print("\t[",0,"]: !!NEW KEY!!")
+    print("Introduce [",0,"] para añadir una nueva key.")
+    
+# esto lo guardo demomento por si me va bien guardar la cantidad actual
+
+return num-=1
+
+def añadirDicionario(dic):
+    # paraula = "xarxa"
+    # entrada = {"PESCA" : "Ormeig de pescar constituït per un teixit de fils nuats formant una retícula quadrada o rombal."}
+    opcioKEY = mostrarKeyPalabras(dic)
+    print("Escribe el key del grupo de palabras")
+    key = input("-> ")
+    # key = key.upper()
+        # Esta funcion comprueba que exista la key(la palabra principal)
+    if key==0:
+        if comprobarDicionario(dic,key)==True:
+            print("No se a podido añadir!! ")
+        else:
+            anadirEntrada(dic)
+            # print("Añadida correctamente")
+            # return dic
+    
+
+# Prints del menu!!!
+
 def bannerBienvenida():
     clear()
     print("--------------------------------")
@@ -51,9 +132,6 @@ def bannerBienvenida():
     print("Este es el proyecto de Pyton")
     print("--------------------------------")
     input("Pulsa Enter para continuar...")
-    
-    
-    
     
 def opcioMostrarDicionario():
     clear()
@@ -70,16 +148,8 @@ def opcioMostrarModificarDic():
     print("Dicionario completo...")
     print("--------------------------------")
     print(" ")       
-
-def opcioMostrarModificar():
-    clear()
-    print("--------------------------------")
-    print("Has seleccionado modificar: ")
-    print("Dicionario completo...")
-    print("--------------------------------")
-    print(" ")   
     
-def opcioMostrarAnadir():
+def opcioAnadir():
     clear()
     print("--------------------------------")
     print("Has seleccionado añadir: ")
@@ -90,8 +160,8 @@ def opcioMostrarAnadir():
 def opcioMostrarEliminar():
     clear()
     print("--------------------------------")
-    print("Has seleccionado añadir: ")
-    print("Dicionario completo...")
+    print("Has seleccionado eliminar: ")
+    print("Eliminar el dicionario...")
     print("--------------------------------")
     print(" ")
 
@@ -101,6 +171,7 @@ def menu():
     print("1) Mostrar dicionario completo")
     print("2) Añadir al dicionario")
     print("3) Modificar el dicionario")
+    print("4) Eliminar el dicionario")
     print("0) Exit->")
     print("________________________________")
     

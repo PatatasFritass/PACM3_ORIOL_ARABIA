@@ -11,22 +11,27 @@ def main():
     while True:
         funciones.clear()
         funciones.menu()
+        op = input("-> ")
         
-        opcion = input("-> ")
-        
-        
-        
-        match int(opcion):
+        match int(op):
             case 1:
-                funciones.opcioMostrar1()
+                funciones.opcioMostrarDicionario()
                 funciones.imprimirDic(diccionario)
                 # opcion = input("Selecciona una opción (1-3): ")
             case 2:
-                print("Has seleccionado 'Añadir al dicionario'")
+                funciones.opcioAnadir()
+
+                # print("Has seleccionado 'Añadir al dicionario'")
                 #diccionario.update(palabraIndx.update(palabraDesc))
+                funciones.añadirDicionario(diccionario)
             case 3:
-                print("Has seleccionado 'Modificar el dicionario'")
+                funciones.opcioMostrarModificarDic()
+                # print("Has seleccionado 'Modificar el dicionario'")
                 
+            case 4:
+                funciones.opcioMostrarEliminar()
+                # print("Has seleccionado 'Eliminar el dicionario'")
+            
             case 0:
                 print("has seleccionado salir")
                 break
