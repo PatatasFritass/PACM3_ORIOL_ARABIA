@@ -27,7 +27,7 @@ print(diccionari)
   #   key
   # "xarxa": {     ENTRADA
           # referencia : definicion
-          #   ref   :   def
+          #   reff   :   deff
           # "PESCA": "Ormeig de pescar constituït per un teixit de fils nuats formant una retícula quadrada o
           # rombal, anomenada malla. Són anomenades filats i, preferentment, arts.",  
           # "TÈXTIL": "Teixit de les xarxes de pescar, fabricat amb torçal de cotó o amb fil d’abacà, de cànem, de

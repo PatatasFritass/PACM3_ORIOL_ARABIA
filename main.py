@@ -20,10 +20,10 @@ def main():
                 # opcion = input("Selecciona una opción (1-3): ")
             case 2:
                 funciones.opcioAnadir()
-
+                funciones.anadirDicionario(diccionario)
                 # print("Has seleccionado 'Añadir al dicionario'")
                 #diccionario.update(palabraIndx.update(palabraDesc))
-                funciones.añadirDicionario(diccionario)
+                
             case 3:
                 funciones.opcioMostrarModificarDic()
                 # print("Has seleccionado 'Modificar el dicionario'")
