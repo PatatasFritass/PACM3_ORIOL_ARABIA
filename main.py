@@ -1,45 +1,44 @@
 import funciones
+import funcionesMostrar
 # 
 # ejecutar →  python main.py
 # Definimos el diccionario
 diccionario = funciones.generarDic()
 def main():
     # Funcion para mostrar el baner de bienvenida
-    funciones.bannerBienvenida()
-    
-    
+    funcionesMostrar.bannerBienvenida()
     while True:
         funciones.clear()
-        funciones.menu()
-        op = input("-> ")
-        
-        match int(op):
+        funcionesMostrar.menu()
+        op = int(input("-> "))
+        match op:
             case 1:
-                funciones.opcioMostrarDicionario()
+                # \|/
+                funcionesMostrar.opcioMostrarDicionario()
                 funciones.imprimirDic(diccionario)
                 # opcion = input("Selecciona una opción (1-3): ")
             case 2:
-                funciones.opcioAnadir()
+                # \|/
+                funcionesMostrar.opcioAnadir()
                 funciones.anadirDicionario(diccionario)
                 # print("Has seleccionado 'Añadir al dicionario'")
                 #diccionario.update(palabraIndx.update(palabraDesc))
-                
             case 3:
-                funciones.opcioMostrarModificarDic()
-                # print("Has seleccionado 'Modificar el dicionario'")
-                
+                funcionesMostrar.opcioMostrarModificarDic()
+                funciones.modificarDic(diccionario)
+                # funciones.ModificarDic()
+                # print("Has seleccionado 'M
+                # odificar el dicionario'")
             case 4:
-                funciones.opcioMostrarEliminar()
+                funcionesMostrar.opcioMostrarEliminar()
+                funciones.eliminarMenu(diccionario)
                 # print("Has seleccionado 'Eliminar el dicionario'")
-            
             case 0:
                 print("has seleccionado salir")
                 break
             case _:
                 print("Valor no valido")
         input("Pulsa Enter para continuar...")
-        
-    
     
 if __name__ == "__main__":
     main()   

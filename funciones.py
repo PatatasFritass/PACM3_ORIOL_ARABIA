@@ -1,15 +1,18 @@
 import os
+import funciones
+import funcionesMostrar
 def clear():
     clear = lambda: os.system('cls')
     clear()
     
 # Genera automaticamente un dicionario por defecto  
 def generarDic():
-    diccionario = {
+    dic = {
         "VAULT": {
             "refugio": "Estructura subterránea diseñada para proteger a la población de Fallout",
             "experimento": "Proyecto de Vault-Tec con propósitos secretos y a menudo cuestionables",
             "símbolo": "Icono reconocible del universo de Fallout, representando seguridad y misterio"
+
         },
         "RADROACH": {
             "insecto": "Criatura radiactiva que ha mutado a partir de cucarachas",
@@ -38,20 +41,20 @@ def generarDic():
         }
     }
 
-    return diccionario
+    return dic
 
 # -- Imprime todas las palabras con su contenido
 # opcio 1
 def imprimirDic(dic):
     for PK in sorted(dic.keys()): # ← pasa por cada palabra del dicionario
-        print(PK)
+        print("#############################")
+        print("[[",PK,"]]")
         for SUBPK in sorted(dic[PK].keys()):
-            print("\t", SUBPK, ":")
-            print("\t\t", dic[PK][SUBPK])
+            print("\t[",SUBPK,"]:")
+            print("\t\t",dic[PK][SUBPK])
             print()
         print()
-
-
+        
 def correcionStringsTrueOrFalse(reff):
     print("Es correcto? S / N [[",reff,"]]")
     correcion = input("-> ")
@@ -65,15 +68,12 @@ def correcionStringsTrueOrFalse(reff):
 
 def crearReferencia():
   #   key
-  # "xarxa": {     ENTRADA
+    # "xarxa": {     ENTRADA
           # referencia : definicion
           #   ref   :   def
           # "PESCA": "Ormeig de pescar constituït per un teixit de fils nuats formant una retícula quadrada o
     clear()
-    print("--------------------------------")
-    print("-- - Creador de referencia  - --")
-    print("--------------------------------")
-    print("")
+    funcionesMostrar.panelCrearReferencia()
     while True:
         print("Introduce la nueva referencia")
         ref = input("-> ")
@@ -83,20 +83,16 @@ def crearReferencia():
  
 def crearDefinicion():
     clear()
-    print("--------------------------------")
-    print("-- - Creador de definicion  - --")
-    print("--------------------------------")
-    print("")
+    
     while True:
         print("Introduce la nueva definicion")
         deff = input("-> ")
         print()
         if (correcionStringsTrueOrFalse(deff)==True):
             return deff       
-               
-           
+                      
 def comprobarDicionario(dic,keyUser):
-    for PK in sorted(dic[PK].keys):
+    for PK in dic:
         if (PK == keyUser):
             print("ERROR")
             print("Ya existe ",keyUser)
@@ -110,10 +106,10 @@ def anadirEntrada():
     # while True
     reff=crearReferencia()
     deff=crearDefinicion()
-    entrada = {rff : deff}
+    entrada = {reff : deff}
     return entrada
         
-def mostrarKeyPalabras(dic):
+def mostrarKeyPalabrasAdd(dic):
     num=1
     for PK in sorted(dic.keys()): # ← pasa por cada palabra del dicionario
         print("\t[",num,"]: " ,PK)
@@ -124,119 +120,226 @@ def mostrarKeyPalabras(dic):
     num -=1
     # Nos retornara la cantidad de KEY que a printado
     return num
-# esto lo guardo por el momento por si me va bien guardar la cantidad actual  
+
+def mostrarKeyPalabrasMod(dic):
+    num=1
+    clear()
+    for PK in sorted(dic.keys()): # ← pasa por cada palabra del dicionario
+        print("\t[",num,"]: " ,PK)
+        num+=1
+    print(" ")
+    print("Introduce un numero para modificar una key.")
+    num -=1
+    # Nos retornara la cantidad de KEY que a printado
+    return num
+
+def mostrarKeyPalabrasDelete(dic):
+    num=1
+    clear()
+    
+    for PK in sorted(dic.keys()): # ← pasa por cada palabra del dicionario
+        print("\t[",num,"]: " ,PK)
+        num+=1
+    print(" ")
+    print("Introduce un numero para eliminar una key.")
+    num -=1
+    # Nos retornara la cantidad de KEY que a printado
+    return num
+
+def mostrarReffPalabrasMod(dic,keyNUM):
+    auxK=0
+    funcionesMostrar.panelModReferencia()
+    for PK in sorted(dic.keys()): # ← pasa por cada palabra del dicionario
+        auxK+=1
+        if (auxK==keyNUM):
+            num=0
+            for SUBPK in sorted(dic[PK].keys()):
+                num+=1
+                print("\t[",num,"]: " ,SUBPK)
+            
+            print()
+            num -=1
+            return num
+        
+def crearKeyNombre():
+    while True:
+        print("Introduce la nueva KEY")
+        keyNombre = input("-> ")
+        print()
+        if (correcionStringsTrueOrFalse(keyNombre)==True):
+            return keyNombre  
+
+def devolverNombreKey(dic,keyNUM):
+    num=1
+    for PK in sorted(dic.keys()): # ← pasa por cada palabra del dicionario   
+        if(num==keyNUM):
+            
+            return PK
+        num+=1  
+
+def devolverNombreReff(dic,keyNUM,reffNUM): 
+    auxK=0
+    for PK in sorted(dic.keys()): # ← pasa por cada palabra del dicionario
+        auxK+=1
+        if (auxK==keyNUM): # 7
+            num=0
+            for SUBPK in sorted(dic[PK].keys()): # 8
+                num+=1
+                if (num==reffNUM):
+                    return SUBPK
 
 def anadirDicionario(dic):
     # paraula = "xarxa"
     # entrada = {"PESCA" : "Ormeig de pescar constituït per un teixit de fils nuats formant una retícula quadrada o rombal."}
-    qttKEY = mostrarKeyPalabras(dic) 
+    mostrarKeyPalabrasAdd(dic) 
     print("Escribe el numero del grupo de las acepciones")
-    key = input("-> ")
-    key = key.upper()
+    keyNUM = int(input("-> "))
+    # key = key.upper()
+    # me falte definir el que cuando sea 0 tiene que pedirte el nombre que tendra keyNAME 
+    if keyNUM==0:
+        keyNAME=crearKeyNombre()
+        entrada=anadirEntrada()
+            # palabra="economia"
+            # acepcion="banco"
+            # definicion = "Lugar donde se lleban a cabo transacciones"
+            # entrada={acepcion:definicion}
+        dic.update({keyNAME:entrada})
+    elif(keyNUM!=0):
         
-    if key==0:
+        keyNAME=devolverNombreKey(dic,keyNUM)
+        print("Has elegido:[",keyNAME,"]:")
+        entrada=anadirEntrada()
+        # print(dic)
         
-        # Esta funcion comprueba que exista la key(la palabra principal)
-        if comprobarDicionario(dic,key)==True:
-            print("No se a podido añadir!! ")
-        else:
-            entrada=anadirEntrada()
-            dic.update({key:entrada})
-            # print("Añadida correctamente")
+        # auxiliar = diccionari[paraula]
+        aux=dic[keyNAME]
+        
+        # auxiliar.update(entrada)
+        print(entrada)
+        aux.update(entrada)
+        
+        # diccionari.update({paraula:auxiliar})  
+        dic.update({keyNAME:aux})
+                    
+        print(dic[keyNAME])
+        input("pausa")
+
+        # if(comprobarDicionario(dic,keyNAME)==True):  
+        #      print("No se a podido añadir!! ")
+        #      print("YA EXISTE ",keyNAME,"!! ") 
+        # else:
+            # entrada=anadirEntrada()
+            # # print(dic)
+            # print(keyNAME)
+            # print(entrada)
+            # dic.update({keyNAME:entrada})
+            
+            
+            
             # return dic
+        # Esta funcion comprueba que exista la key(la palabra principal)
+        # if comprobarDicionario(dic,key)==True:
+        #     print("No se a podido añadir!! ")
+        # else:    
+            # print("Añadida correctamente")
+            # return dic    
+
+
+def modificarDic(dic):
+    clear()
+    funcionesMostrar.menuModificarDic()
+    opcion = int(input("-> "))
+    
+    match opcion:
+        case 1:
+            # 1- Mod Key
+            # diccionario["new_key"] = diccionario.pop("old_key")
+            mostrarKeyPalabrasMod(dic)
+            keyNUM = int(input("-> "))
+            
+            keyNew=crearKeyNombre()
+            keyOld=devolverNombreKey(dic,keyNUM)
+            dic[keyNew] = dic.pop(keyOld)
+            print("")
+        case 2:
+            # 2- Mod palabra
+            # diccionario["key"]["new_reff"] = diccionario["key"].pop("old_reff")
+            # 
+            mostrarKeyPalabrasMod(dic)
+            keyNUM = int(input("-> "))
+            opcionKey=devolverNombreKey(dic,keyNUM)
+            # 
+            mostrarReffPalabrasMod(dic,keyNUM)
+            reffNUM = int(input("-> "))
+            
+            reffNew=crearReferencia()
+            reffOld=devolverNombreReff(dic,keyNUM,reffNUM)
+            
+            dic[opcionKey][reffNew] = dic[opcionKey].pop(reffOld)
+            
+            print("")
+
+        case 3:
+            # 3- mod Descripcion
+            # diccionario["key"]["reff"] = "Los jueves se come rabo de toro"
+            print("")
+            mostrarKeyPalabrasMod(dic)
+            keyNUM = int(input("-> "))
+            opcionKey=devolverNombreKey(dic,keyNUM)
+            # 
+            mostrarReffPalabrasMod(dic,keyNUM)
+            reffNUM = int(input("-> "))
+            opcionReff=devolverNombreReff(dic,keyNUM,reffNUM)
+            #
+            deff=crearDefinicion()            
+            dic[opcionKey][opcionReff] = deffdeff
+        case _:
+            # Salir
+            print("Valor no valido")            
+
+    
+    
+    
+    
+def eliminarMenu(dic):
+    clear()
+    
+    funcionesMostrar.menuEliminarDic()
+    opcion = int(input("-> "))
+    
+    match opcion:
+        case 1:
+            # 1- Mod Key
+            # diccionario["new_key"] = diccionario.pop("old_key")
+            funcionesMostrar.opcioMostrarEliminarKey()
+            mostrarKeyPalabrasDelete(dic)
+            keyNUM = int(input("-> "))
+            
+            key=devolverNombreKey(dic,keyNUM)
+            dic.pop(key)
+            print("")
+        case 2:
+            # 2- Mod palabra
+            # diccionario["key"]["new_reff"] = diccionario["key"].pop("old_reff")
+            # 
+            funcionesMostrar.opcioMostrarEliminarReff
+            mostrarKeyPalabrasDelete(dic)
+            keyNUM = int(input("-> "))
+            opcionKey=devolverNombreKey(dic,keyNUM)
+            # 
+            mostrarReffPalabrasMod(dic,keyNUM)
+            reffNUM = int(input("-> "))
+            
+            opcionReff=devolverNombreReff(dic,keyNUM,reffNUM)
+            
+            dic[opcionKey].pop(opcionReff)
+            
+            print("")     
+        case _:
+             # Salir
+            print("Valor no valido")   
     
 
-# Prints del menu!!!
-
-def bannerBienvenida():
-    clear()
-    print("--------------------------------")
-    print("Creat Per Oriol Arabia")
-    print("Este es el proyecto de Pyton")
-    print("--------------------------------")
-    print("")
-    dibujo = """
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣶⣤⣄⡀⠀⢿⡿⣁⠀⢆⡘⠤⡘⠠⢰⠃⡄⠂⠄⠀⠀⠀⠀⡀⡆⠌⢄⠀⠀⢠⡇⠂⡌⠄⠀⠀⠀⠀⠀⠀⠡⣖⠀⢃⠸⠀⠸⣟⡄⠘⡽⡜⡄⠀⠀⠀⠈⠦⠀⠀⠀⠸
-        ⣿⣿⣿⣿⣿⣿⡿⠁⠈⢻⡝⣟⣷⡿⢁⠤⢀⠢⢌⠰⡀⠂⡟⠠⡄⠈⠀⠀⣀⠤⠐⣰⠌⡈⢄⠂⡡⣺⠄⡇⠰⠈⡄⢃⠰⢀⠰⢀⠂⢽⠂⢼⠐⡠⠄⣿⡼⡀⠱⢹⡰⠀⠀⠀⠀⠀⣆⠀⠀⠀
-        ⣿⣿⣿⣿⣿⣿⠁⢄⠠⢀⣹⣞⡿⢁⢊⠰⢀⠎⡐⢂⠁⢳⠋⠴⠁⠀⣠⠞⡠⢁⣺⡇⠤⢁⠢⠘⢠⡿⢰⡏⠄⢃⡐⢈⠰⢈⠰⢸⠌⣸⠌⢺⡐⠤⢈⣽⣧⢩⡄⢉⢧⠡⠉⡍⠒⠤⣸⡀⠀⠀
-        ⣿⣿⣿⣿⣿⣿⠩⡐⠌⢿⡯⣿⠇⡌⠢⢡⠈⡔⠈⠂⠃⢾⢈⠒⠀⡴⢁⡾⠑⣸⢻⢀⠒⢠⠂⡉⢼⡇⢸⡇⠌⠄⡄⢃⠰⢈⠰⠸⡂⢼⢈⢹⠆⠰⢸⢿⠸⡆⢷⢈⠸⣄⠃⠤⢉⡐⠨⣧⠀⡀
-        ⣿⣿⣿⣿⣿⣿⡟⣿⣻⢾⡷⣿⠐⡄⢃⠆⠈⠐⠁⠀⠀⣾⠸⠀⢀⡇⣼⠇⢡⡏⣇⠢⠘⡀⠆⢡⡎⡇⢺⣇⠘⢠⠐⠨⡐⢂⠢⢡⡇⠾⢈⢸⡃⡘⢼⢸⠀⢻⠈⣇⠌⣷⢈⡐⠂⠤⢱⢿⠀⠔
-        ⣿⣿⣿⣿⣿⣿⣯⡚⢧⡻⣽⡏⠰⡈⢄⠈⠀⡀⠀⠀⠀⣿⢸⢀⢂⢸⡟⡈⢼⢳⠁⢂⡁⠆⡑⢺⢱⡇⣼⢿⠈⠄⡈⠡⢐⠠⢁⢺⡄⡟⡀⢺⢁⡴⡿⢸⢄⠈⡇⢺⡆⢸⡆⠤⢉⠰⢐⣸⠈⠔
-        ⣿⣿⣿⣿⣿⣿⣿⣷⠁⢿⣹⡇⠡⠌⠀⠀⠀⠀⠀⠀⢀⡿⣸⠀⢂⣿⢃⠐⡞⡼⢈⣄⣐⣤⡴⡯⢼⠴⡿⢼⠾⠶⠶⠶⣤⠂⠌⣹⢰⡇⡐⡏⢸⢡⡇⡽⡀⠑⢳⠐⣷⠀⢿⡇⠌⡐⠂⡽⢈⡐
-        ⣿⣿⣿⣿⣿⣿⣿⡏⠠⣄⣿⠄⠀⠀⠀⠀⠀⡅⠀⠠⢠⡟⣧⠈⣰⣿⠀⣼⠴⡗⢉⠉⡐⢠⢷⠃⢸⢠⠃⢸⣿⠀⢀⠂⢸⠀⢂⡏⣼⠁⣸⠁⡏⡜⡇⡧⠬⣴⣼⣀⢿⢇⢸⣹⠀⠀⡁⠇⡃⠄
-        ⣿⣿⣿⣿⣿⣿⣿⣇⡷⠊⢸⠀⠀⠀⢠⣦⣄⠇⡈⢁⠆⣿⣧⠐⣽⡇⠐⣾⢰⡇⢂⠡⢈⡏⡞⠀⡼⣸⠀⠀⣿⠀⠀⠂⣏⠐⢸⢡⡟⢀⡏⣼⢱⠁⣧⠁⠀⠀⠈⡟⣻⠺⣤⣿⡆⠐⠀⡇⠄⡈
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣄⠂⣿⠀⠀⢠⠃⢿⣣⠐⠠⠌⠠⣿⣿⠀⢿⠃⢌⣿⠸⡇⢀⢂⡼⡼⠀⢀⢧⡯⠄⡀⣿⠀⠌⢰⡇⠈⣼⡿⠁⡞⣸⢇⠇⢰⡟⠀⠀⠀⠈⡇⡝⠀⢇⡟⡧⣄⠂⡇⠀⢰
-        ⣿⣿⣿⣿⣿⡿⢭⢿⣿⣶⣻⡆⠀⡏⠠⠸⡽⣏⠐⡈⡐⢿⣻⡠⣿⠈⢸⡍⣆⣧⣾⣾⣿⣿⣶⣾⣾⣆⠄⠀⣿⡆⠀⣸⠁⣸⡿⢁⡞⡕⡹⡌⠀⣼⢁⠤⠤⢀⣀⡇⡇⠀⠸⣼⡇⠀⠑⣷⠈⣸
-        ⣿⣿⣿⣿⣿⡹⢎⣗⡻⣿⣷⣇⠘⣇⠄⡁⢻⣽⡆⠡⠠⢹⣿⡓⣿⣴⣿⣿⣿⣿⡿⣟⣿⢫⣟⣏⠉⠙⠛⠶⣿⢿⠀⡞⢀⡟⢡⣾⠊⣰⠟⠀⣼⠃⣐⣤⣴⣦⣤⣧⣇⣠⠀⣿⡇⠀⡁⡏⠀⡿
-        ⣿⣿⣿⡟⣧⣛⡭⢶⡙⣿⢻⣿⡄⢻⡔⠠⡈⢧⢿⡆⢡⠈⢿⣇⣷⣿⡿⠛⣯⢽⡳⢧⡞⠀⠀⣽⡀⠀⠀⠀⠛⠘⠻⢣⣞⣴⠟⠁⠠⠏⠀⠐⠁⢸⣿⢿⣟⠿⣿⡿⣿⣷⣤⣸⡂⠀⢸⠃⢰⠇
-        ⣿⣿⡿⣹⣧⡓⢾⢷⡟⢸⣯⢹⣷⡌⢻⣄⠱⣌⠳⣿⣦⠲⠾⣿⣿⣿⠁⠈⣟⠊⢿⡧⢿⠃⡜⣸⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣏⣟⡑⢀⡻⡴⢷⠈⠻⣿⣿⣟⠋⡟⢀⡎⠄
-        ⣿⣿⠳⣽⠲⣝⡿⢸⡇⣸⠙⣷⢺⣿⣧⡻⣷⣌⢢⡙⢽⣷⣤⠘⢧⠙⢦⡀⢻⡌⠀⢠⢁⠒⢯⡀⠀⠀⠀⠀⠀⡀⠀⢀⠀⢀⠀⠀⠀⠀⠀⠀⠀⡏⣷⣹⡏⠵⡙⣺⠀⠀⠸⣿⣿⣾⢁⡾⠀⣲
-        ⣿⢫⡝⣾⢹⣾⢃⢹⡇⢼⠂⣿⣹⠋⢉⡿⣾⣿⣷⣌⠲⣽⢿⣿⣮⣷⣀⠈⠀⠙⠗⠒⠚⡋⠉⠀⠀⠀⠀⣺⠂⠀⠀⢀⠀⠠⠐⣀⡀⠂⠀⠀⠀⢷⢈⠩⠀⡡⠲⠏⠀⠀⣸⢟⣽⣫⡟⢁⣴⢏
-        ⣏⢷⣙⣮⠟⡐⠢⢼⡇⢸⡿⢧⣟⠀⡇⡄⣤⢩⢿⣛⢷⣤⣭⣛⢿⣮⠉⠳⠦⣤⠁⠁⡡⢈⢄⠡⠅⡆⠂⠀⠀⡈⠀⢈⡠⠆⠨⢀⠀⠀⠀⠄⠐⠈⠙⡲⢷⡼⡆⠀⠄⡐⠁⣿⣿⣋⣴⣾⢋⣾
-        ⣞⢺⣼⠏⡐⠌⡁⣿⡇⢸⡇⠼⣿⠀⢷⠀⢹⡆⣿⡉⠚⠶⣭⣻⣿⡟⠢⢄⢤⢇⡀⡅⠦⠠⡴⠀⠀⠐⢐⠀⠆⠃⠄⠖⠉⠂⠅⠊⠁⢒⠄⠐⣀⠀⠂⠉⣀⠁⡄⠁⠈⠐⢸⣿⢫⣿⡳⣵⡿⢿
-        ⣎⡿⢼⠂⡅⢊⠔⣿⣵⢺⡏⠄⣿⣧⡈⠓⢌⠷⢾⡇⢁⠢⢀⢹⠑⣷⠈⡠⠏⠤⠨⣁⢃⠕⠋⡫⢗⠉⠈⡂⠁⠀⢂⠐⢁⠣⠀⠁⠀⠘⠒⠥⠴⢄⢀⠐⠁⠀⠐⠀⠀⠈⡿⣬⡿⢣⡓⣸⣇⢻
-        ⣾⣃⡯⢼⣀⠣⣈⣿⡽⣺⠛⢠⠹⡻⣿⣦⡀⠑⠪⣇⠂⠔⡈⡾⠊⣿⠎⠵⠃⡓⠀⡀⠉⠄⠆⠁⠉⠀⠈⠡⠂⠀⠀⡀⢈⣀⠊⣡⠂⠀⡐⠛⠊⢁⠰⠖⠃⠀⠁⢀⡀⢰⠟⡞⠡⢠⢰⣿⠸⣸
-        ⣿⣿⣳⢯⣿⣿⣿⣷⣽⣹⡇⠌⣷⢳⢋⠻⢿⣦⣀⡟⡀⠊⢰⡇⠂⣿⡇⠠⠁⠀⠁⠀⡐⠀⠀⠀⠀⠀⠀⠀⠀⠀⡠⡔⠁⠀⠉⠢⢀⠀⠀⠀⠀⠈⠈⠁⢀⠠⠊⠀⠈⢺⡞⠠⢁⢂⣯⡏⠵⡘
-        ⣿⣿⡜⣿⣿⣿⣿⣿⢾⣻⣧⡂⢹⣏⣿⡄⠌⢻⣿⣧⠀⠡⣸⠠⠁⣾⡇⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⢀⡠⠐⠁⠀⠀⠀⠀⠀⠀⠀⠉⠫⣦⠀⠀⢀⠔⠁⠀⠀⠀⡀⠀⠙⢦⢁⡞⣼⡙⢦⠑
-        ⣿⣿⡽⣹⣿⣿⣿⣿⡯⣷⣯⢿⣄⠻⣜⣷⡈⠄⢻⣷⠈⢠⡗⠠⠁⣿⢸⣄⠀⠀⠀⠀⠀⠀⢀⡔⠊⠉⠀⠀⠀⠀⠀⠀⡰⠂⠤⣀⠀⠀⢀⣃⠀⣰⠁⠀⠀⡴⢴⣧⠀⡀⠀⠀⠙⢦⡏⡝⢢⠌
-        ⡿⣿⣿⣽⣿⢿⣿⣿⡷⣣⢿⣯⣻⢷⣽⢞⣿⡄⠂⣿⠀⣸⠃⠠⢁⣷⠸⡇⠑⢤⡀⠀⣠⠞⠁⠀⠀⠀⠀⠀⠀⣀⠔⠀⠀⠀⠀⠈⢧⡀⢿⣿⣾⡿⠁⡠⢊⣴⣿⢸⡷⣄⣐⠀⢀⠄⠙⠓⠧⣌
-        ⣿⣷⣿⣿⣿⣿⣿⣿⡿⣵⢫⣷⣏⣟⣾⣻⣾⣿⣆⢿⠀⡿⠀⠀⠂⣼⠐⣿⡀⢀⡼⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠒⢄⡀⠀⠀⠀⠀⠑⠮⠿⠛⠒⢈⣴⣿⣿⡏⡾⢁⠈⣿⠖⠁⠀⠀⠀⠀⠀
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣳⣿⣿⣿⣯⣟⣷⢯⣿⣿⣿⢰⠃⠀⠀⠐⢸⠀⣻⠟⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠲⠄⡀⠀⠀⠀⢀⣠⣾⣿⣿⣿⣿⣃⠇⢂⢡⠏⠀⠀⠀⠀⢀⠀⠀
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣞⢾⡻⢷⣯⣿⣼⠀⠀⠀⢀⡼⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠲⣤⣀⡀⠀⠀⠀⠀⠈⠢⣤⣾⣿⣿⣿⣿⣿⣿⣿⢸⠠⡱⠃⠀⠀⠀⣠⣶⠋⠀⠀
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⢾⣽⣯⣞⣽⡟⠀⣠⠔⠋⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠙⠿⣷⣤⡀⠀⠀⠀⠀⠙⢿⣿⣿⣿⣿⣷⣿⢀⡜⠁⠀⠀⣠⡞⡱⠁⠀⠀⠀
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢯⢿⣿⣿⣿⣧⠞⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠠⢀⠀⠀⠀⠀⠀⠀⠙⢿⣷⣄⡀⠀⠀⠀⠹⢿⣿⣿⣿⣿⡼⠀⠀⢀⣾⣿⡟⠀⠀⠀⠀⠀
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡻⣞⢾⡹⡿⠀⠀⠀⢀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠉⠂⢄⡀⠀⠀⣠⣿⣿⣿⣿⣦⣄⠀⠀⠀⠻⣿⣿⡟⢀⠀⣡⠂⢺⣿⡣⢀⢀⠄⠀⠀
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⣝⣾⣿⣧⢶⡶⣿⢿⣿⣦⣤⣀⣀⣀⣤⣀⣴⣶⣤⣤⣄⡀⠀⠀⢀⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⢠⣾⣿⣾⡷⣰⠉⡆⣹⣿⣿⣶⣿⣆⡀⢀
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡞⣯⢷⣏⡿⣽⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⣦⣽⣿⡿⠕⠉⢆⢱⢸⣿⣿⣿⣿⣿⣿⣿
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⡽⣾⣹⡞⣷⡽⣞⡽⣯⢿⣹⢯⣿⣿⣿⣿⣯⣿⡿⣿⣿⣿⣿⣿⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡀⠀⠀⢪⢿⣿⣿⣿⣿⣿⣿⣿
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⡽⣶⢯⡽⣞⣳⢯⡽⣞⣯⣽⢫⣿⡟⣿⣻⢿⡽⣿⣿⣿⣿⣻⣽⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷⡈⠀⠀⠹⣿⣿⣿⣿⣿⣿⣿
-        ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣯⢷⣛⡾⣽⣹⡽⢾⣹⠷⣞⣞⠿⣼⣿⡘⣯⣾⣿⢿⣹⢯⣟⡿⣿⢿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣄⠀⠀⠈⠻⣿⣿⣿⣿⣿
-        I ♥ PYTON
-    """
-    print(dibujo)   
-    input("Pulsa Enter para continuar...")
-    
-def opcioMostrarDicionario():
-    clear()
-    print("--------------------------------")
-    print("Has seleccionado mostrar: ")
-    print("Dicionario completo")
-    print("--------------------------------")
-    print(" ")
-
-def opcioMostrarModificarDic():
-    clear()
-    print("--------------------------------")
-    print("Has seleccionado modificar: ")
-    print("Dicionario completo...")
-    print("--------------------------------")
-    print(" ")       
-    
-def opcioAnadir():
-    clear()
-    print("--------------------------------")
-    print("Has seleccionado añadir: ")
-    print("Dicionario completo...")
-    print("--------------------------------")
-    print(" ")
-
-def opcioMostrarEliminar():
-    clear()
-    print("--------------------------------")
-    print("Has seleccionado eliminar: ")
-    print("Eliminar el dicionario...")
-    print("--------------------------------")
-    print(" ")
-
-def menu():
-    clear()
-    print("________________________________")
-    print("1) Mostrar dicionario completo")
-    print("2) Añadir al dicionario")
-    print("3) Modificar el dicionario")
-    print("4) Eliminar el dicionario")
-    print("0) Exit->")
-    print("________________________________")
     
         
                                                                                                                                             
