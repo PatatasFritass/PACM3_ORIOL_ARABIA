@@ -40,7 +40,6 @@ def generarDic():
             "misterio": "Sus actividades y objetivos a menudo están envueltos en secreto, generando especulaciones y misterios en el yermo"
         }
     }
-
     return dic
 
 # -- Imprime todas las palabras con su contenido
@@ -224,26 +223,6 @@ def anadirDicionario(dic):
         print(dic[keyNAME])
         input("pausa")
 
-        # if(comprobarDicionario(dic,keyNAME)==True):  
-        #      print("No se a podido añadir!! ")
-        #      print("YA EXISTE ",keyNAME,"!! ") 
-        # else:
-            # entrada=anadirEntrada()
-            # # print(dic)
-            # print(keyNAME)
-            # print(entrada)
-            # dic.update({keyNAME:entrada})
-            
-            
-            
-            # return dic
-        # Esta funcion comprueba que exista la key(la palabra principal)
-        # if comprobarDicionario(dic,key)==True:
-        #     print("No se a podido añadir!! ")
-        # else:    
-            # print("Añadida correctamente")
-            # return dic    
-
 
 def modificarDic(dic):
     clear()
@@ -291,8 +270,8 @@ def modificarDic(dic):
             reffNUM = int(input("-> "))
             opcionReff=devolverNombreReff(dic,keyNUM,reffNUM)
             #
-            deff=crearDefinicion()            
-            dic[opcionKey][opcionReff] = deffdeff
+            deff=crearDefinicion()              
+            dic[opcionKey][opcionReff] = deff
         case _:
             # Salir
             print("Valor no valido")            
@@ -322,7 +301,7 @@ def eliminarMenu(dic):
             # 2- Mod palabra
             # diccionario["key"]["new_reff"] = diccionario["key"].pop("old_reff")
             # 
-            funcionesMostrar.opcioMostrarEliminarReff
+            funcionesMostrar.opcioMostrarEliminarReff()
             mostrarKeyPalabrasDelete(dic)
             keyNUM = int(input("-> "))
             opcionKey=devolverNombreKey(dic,keyNUM)

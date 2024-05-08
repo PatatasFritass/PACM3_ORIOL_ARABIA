@@ -28,13 +28,14 @@ def main():
                 funciones.modificarDic(diccionario)
                 # funciones.ModificarDic()
                 # print("Has seleccionado 'M
+            
                 # odificar el dicionario'")
             case 4:
-                funcionesMostrar.opcioMostrarEliminar()
+                funcionesMostrar.menuEliminarDic()
                 funciones.eliminarMenu(diccionario)
                 # print("Has seleccionado 'Eliminar el dicionario'")
             case 0:
-                print("has seleccionado salir")
+                print("Has seleccionado salir")
                 break
             case _:
                 print("Valor no valido")
